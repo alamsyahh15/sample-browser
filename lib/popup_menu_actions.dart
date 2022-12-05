@@ -10,7 +10,7 @@ class PopupMenuActions {
   // ignore: constant_identifier_names
   static const String WEB_ARCHIVES = "Web Archives";
   // ignore: constant_identifier_names
-  static const String SHARE = "Share";
+  static const String SHARE = "Copy";
   // ignore: constant_identifier_names
   static const String FIND_ON_PAGE = "Find on page";
   // ignore: constant_identifier_names
@@ -18,9 +18,9 @@ class PopupMenuActions {
   // ignore: constant_identifier_names
   static const String SETTINGS = "Settings";
   // ignore: constant_identifier_names
-  static const String DEVELOPERS = "Developers";
+  // static const String DEVELOPERS = "Developers";
   // ignore: constant_identifier_names
-  static const String INAPPWEBVIEW_PROJECT = "InAppWebView Project";
+  // static const String INAPPWEBVIEW_PROJECT = "InAppWebView Project";
 
   static const List<String> choices = <String>[
     NEW_TAB,
@@ -32,7 +32,7 @@ class PopupMenuActions {
     FIND_ON_PAGE,
     DESKTOP_MODE,
     SETTINGS,
-    DEVELOPERS,
-    INAPPWEBVIEW_PROJECT,
+    // DEVELOPERS,
+    // INAPPWEBVIEW_PROJECT,
   ];
 }

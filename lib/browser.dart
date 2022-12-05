@@ -1,12 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 // import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_browser/custom_image.dart';
-import 'package:flutter_browser/tab_viewer.dart';
 import 'package:flutter_browser/app_bar/browser_app_bar.dart';
+import 'package:flutter_browser/custom_image.dart';
 import 'package:flutter_browser/models/webview_model.dart';
+import 'package:flutter_browser/tab_viewer.dart';
 import 'package:flutter_browser/util.dart';
 import 'package:flutter_browser/webview_tab.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -224,11 +226,12 @@ class _BrowserState extends State<Browser> with SingleTickerProviderStateMixin {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Material(
-                      color: isCurrentTab
-                          ? Colors.blue
-                          : (webViewTab.webViewModel.isIncognitoMode
-                              ? Colors.black
-                              : Colors.white),
+                      // color: isCurrentTab
+                      //     ? Colors.blue
+                      //     : (webViewTab.webViewModel.isIncognitoMode
+                      //         ? Colors.black
+                      //         : Colors.white),
+                      color: Color(0xFF3D3D3D),
                       child: ListTile(
                         leading: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

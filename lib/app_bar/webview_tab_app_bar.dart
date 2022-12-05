@@ -1,4 +1,6 @@
 // import 'package:cached_network_image/cached_network_image.dart';
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -19,9 +21,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_extend/share_extend.dart';
-import 'package:share_plus/share_plus.dart';
 
-import '../animated_flutter_browser_logo.dart';
 import '../custom_popup_dialog.dart';
 import '../custom_popup_menu_item.dart';
 import '../popup_menu_actions.dart';
@@ -101,16 +101,16 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
               builder: (context, isIncognitoMode, child) {
                 return leading != null
                     ? AppBar(
-                        backgroundColor:
-                            isIncognitoMode ? Colors.black87 : Colors.blue,
+                        // backgroundColor:
+                        //     isIncognitoMode ? Colors.black87 : Colors.blue,
+                        backgroundColor: Color(0xFF3D3D3D),
                         leading: _buildAppBarHomePageWidget(),
                         titleSpacing: 0.0,
                         title: _buildSearchTextField(),
                         actions: _buildActionsMenu(),
                       )
                     : AppBar(
-                        backgroundColor:
-                            isIncognitoMode ? Colors.black87 : Colors.blue,
+                        backgroundColor: Color(0xFF3D3D3D),
                         titleSpacing: 10.0,
                         title: _buildSearchTextField(),
                         actions: _buildActionsMenu(),
@@ -162,7 +162,10 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
               var url = WebUri(value.trim());
               if (!url.scheme.startsWith("http") &&
                   !Util.isLocalizedContent(url)) {
-                url = WebUri(settings.searchEngine.searchUrl + value);
+                // log("Result => Masuk sini");
+                // url = WebUri(settings.searchEngine.searchUrl + value);
+
+                url = WebUri(settings.searchEngine.searchUrl);
               }
 
               if (webViewController != null) {
@@ -536,7 +539,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                         Text(choice),
                         const Icon(
                           Icons.add,
-                          color: Colors.black,
+                          color: Colors.white,
                         )
                       ]),
                 );
@@ -550,7 +553,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                         Text(choice),
                         const Icon(
                           MaterialCommunityIcons.incognito,
-                          color: Colors.black,
+                          color: Colors.white,
                         )
                       ]),
                 );
@@ -598,7 +601,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                               value
                                   ? Icons.check_box
                                   : Icons.check_box_outline_blank,
-                              color: Colors.black,
+                              color: Colors.white,
                             );
                           },
                         )
@@ -614,7 +617,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                         Text(choice),
                         const Icon(
                           Icons.history,
-                          color: Colors.black,
+                          color: Colors.white,
                         )
                       ]),
                 );
@@ -627,8 +630,9 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                       children: [
                         Text(choice),
                         const Icon(
-                          Ionicons.logo_whatsapp,
-                          color: Colors.green,
+                          // Ionicons.logo_whatsapp,
+                          Icons.copy,
+                          color: Colors.white,
                         )
                       ]),
                 );
@@ -646,20 +650,21 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                         )
                       ]),
                 );
-              case PopupMenuActions.DEVELOPERS:
-                return CustomPopupMenuItem<String>(
-                  enabled: browserModel.getCurrentTab() != null,
-                  value: choice,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(choice),
-                        const Icon(
-                          Icons.developer_mode,
-                          color: Colors.black,
-                        )
-                      ]),
-                );
+              // case PopupMenuActions.DEVELOPERS:
+              //   return CustomPopupMenuItem<String>(
+              //     enabled: browserModel.getCurrentTab() != null,
+              //     value: choice,
+              //     child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Text(choice),
+              //           const Icon(
+              //             Icons.developer_mode,
+              //             color: Colors.black,
+              //           )
+              //         ]),
+              //   );
+
               case PopupMenuActions.FIND_ON_PAGE:
                 return CustomPopupMenuItem<String>(
                   enabled: browserModel.getCurrentTab() != null,
@@ -670,26 +675,27 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                         Text(choice),
                         const Icon(
                           Icons.search,
-                          color: Colors.black,
+                          color: Colors.white,
                         )
                       ]),
                 );
-              case PopupMenuActions.INAPPWEBVIEW_PROJECT:
-                return CustomPopupMenuItem<String>(
-                  enabled: true,
-                  value: choice,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(choice),
-                        Container(
-                          padding: const EdgeInsets.only(right: 6),
-                          child: const AnimatedFlutterBrowserLogo(
-                            size: 12.5,
-                          ),
-                        )
-                      ]),
-                );
+              // case PopupMenuActions.INAPPWEBVIEW_PROJECT:
+              //   return CustomPopupMenuItem<String>(
+              //     enabled: true,
+              //     value: choice,
+              //     child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Text(choice),
+              //           Container(
+              //             padding: const EdgeInsets.only(right: 6),
+              //             child: const AnimatedFlutterBrowserLogo(
+              //               size: 12.5,
+              //             ),
+              //           )
+              //         ]),
+              //   );
+
               default:
                 return CustomPopupMenuItem<String>(
                   value: choice,
@@ -724,35 +730,39 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
         showWebArchives();
         break;
       case PopupMenuActions.FIND_ON_PAGE:
-        var isFindInteractionEnabled = currentWebViewModel.settings?.isFindInteractionEnabled ?? false;
-        var findInteractionController = currentWebViewModel.findInteractionController;
-        if (Util.isIOS() && isFindInteractionEnabled && findInteractionController != null) {
+        var isFindInteractionEnabled =
+            currentWebViewModel.settings?.isFindInteractionEnabled ?? false;
+        var findInteractionController =
+            currentWebViewModel.findInteractionController;
+        if (Util.isIOS() &&
+            isFindInteractionEnabled &&
+            findInteractionController != null) {
           await findInteractionController.presentFindNavigator();
         } else if (widget.showFindOnPage != null) {
           widget.showFindOnPage!();
         }
         break;
       case PopupMenuActions.SHARE:
-        share();
+        copyLink();
         break;
       case PopupMenuActions.DESKTOP_MODE:
         toggleDesktopMode();
         break;
-      case PopupMenuActions.DEVELOPERS:
-        Future.delayed(const Duration(milliseconds: 300), () {
-          goToDevelopersPage();
-        });
-        break;
+      // case PopupMenuActions.DEVELOPERS:
+      //   Future.delayed(const Duration(milliseconds: 300), () {
+      //     goToDevelopersPage();
+      //   });
+      //   break;
       case PopupMenuActions.SETTINGS:
         Future.delayed(const Duration(milliseconds: 300), () {
           goToSettingsPage();
         });
         break;
-      case PopupMenuActions.INAPPWEBVIEW_PROJECT:
-        Future.delayed(const Duration(milliseconds: 300), () {
-          openProjectPopup();
-        });
-        break;
+      // case PopupMenuActions.INAPPWEBVIEW_PROJECT:
+      //   Future.delayed(const Duration(milliseconds: 300), () {
+      //     openProjectPopup();
+      //   });
+      //   break;
     }
   }
 
@@ -985,12 +995,29 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
         });
   }
 
-  void share() {
+  void copyLink() async {
     var browserModel = Provider.of<BrowserModel>(context, listen: false);
     var webViewModel = browserModel.getCurrentTab()?.webViewModel;
     var url = webViewModel?.url;
     if (url != null) {
-      Share.share(url.toString(), subject: webViewModel?.title);
+      // Share.share(url.toString(), subject: webViewModel?.title);
+      await Clipboard.setData(ClipboardData(text: "${url.toString()}"));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: RichText(
+            text: TextSpan(
+                style: TextStyle(color: Colors.black),
+                text: "Link Copied : ",
+                children: [
+                  TextSpan(
+                    text: "${url.toString()}",
+                    style: TextStyle(decoration: TextDecoration.underline),
+                  )
+                ]),
+          ),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
   }
 
@@ -1007,9 +1034,10 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
 
       var currentSettings = await webViewController.getSettings();
       if (currentSettings != null) {
-        currentSettings.preferredContentMode = webViewModel?.isDesktopMode ?? false
-            ? UserPreferredContentMode.DESKTOP
-            : UserPreferredContentMode.RECOMMENDED;
+        currentSettings.preferredContentMode =
+            webViewModel?.isDesktopMode ?? false
+                ? UserPreferredContentMode.DESKTOP
+                : UserPreferredContentMode.RECOMMENDED;
         await webViewController.setSettings(settings: currentSettings);
       }
       await webViewController.reload();

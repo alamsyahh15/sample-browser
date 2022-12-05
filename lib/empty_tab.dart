@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_browser/util.dart';
 import 'package:flutter_browser/webview_tab.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
@@ -44,16 +45,16 @@ class _EmptyTabState extends State<EmptyTab> {
                   textInputAction: TextInputAction.go,
                   decoration: const InputDecoration(
                     hintText: "Search for or type a web address",
-                    hintStyle: TextStyle(color: Colors.black54, fontSize: 25.0),
+                    hintStyle: TextStyle(color: Colors.white, fontSize: 25.0),
                   ),
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 25.0,
                   ),
                 )),
                 IconButton(
-                  icon: const Icon(Icons.search,
-                      color: Colors.black54, size: 25.0),
+                  icon:
+                      const Icon(Icons.search, color: Colors.white, size: 25.0),
                   onPressed: () {
                     openNewTab(_controller.text);
                     FocusScope.of(context).unfocus();
@@ -71,12 +72,19 @@ class _EmptyTabState extends State<EmptyTab> {
     var browserModel = Provider.of<BrowserModel>(context, listen: false);
     var settings = browserModel.getSettings();
 
+    var url = WebUri(value.trim());
+    if (!url.scheme.startsWith("http") && !Util.isLocalizedContent(url)) {
+      url = WebUri(settings.searchEngine.searchUrl);
+    }
+
     browserModel.addTab(WebViewTab(
       key: GlobalKey(),
       webViewModel: WebViewModel(
-          url: WebUri(value.startsWith("http")
-              ? value
-              : settings.searchEngine.searchUrl + value)),
+        // url: WebUri(value.startsWith("http")
+        //     ? value
+        //     : settings.searchEngine.searchUrl + value),
+        url: url,
+      ),
     ));
   }
 }

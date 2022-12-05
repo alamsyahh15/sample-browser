@@ -37,9 +37,7 @@ void main() async {
   TAB_VIEWER_BOTTOM_OFFSET_2 = 140.0;
   TAB_VIEWER_BOTTOM_OFFSET_3 = 150.0;
 
-  await FlutterDownloader.initialize(
-    debug: kDebugMode
-  );
+  await FlutterDownloader.initialize(debug: kDebugMode);
 
   await Permission.camera.request();
   await Permission.microphone.request();
@@ -71,11 +69,17 @@ class FlutterBrowserApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Browser',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      // ),
+      theme: ThemeData.dark(useMaterial3: true),
+
       initialRoute: '/',
+      highContrastTheme: ThemeData.dark(),
+      highContrastDarkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
+      darkTheme: ThemeData(brightness: Brightness.dark),
       routes: {
         '/': (context) => const Browser(),
       },
