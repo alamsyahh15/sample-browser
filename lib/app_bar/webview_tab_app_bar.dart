@@ -162,10 +162,8 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
               var url = WebUri(value.trim());
               if (!url.scheme.startsWith("http") &&
                   !Util.isLocalizedContent(url)) {
-                // log("Result => Masuk sini");
-                // url = WebUri(settings.searchEngine.searchUrl + value);
-
-                url = WebUri(settings.searchEngine.searchUrl);
+                url = WebUri(settings.searchEngine.searchUrl + value);
+                // url = WebUri(settings.searchEngine.searchUrl);
               }
 
               if (webViewController != null) {
