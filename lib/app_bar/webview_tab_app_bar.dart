@@ -166,7 +166,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
               if (!url.scheme.startsWith("http") &&
                   !Util.isLocalizedContent(url)) {
                 if (Util.isValidDomain(value)) {
-                  url = WebUri("https://$value");
+                  url = WebUri("http://$value");
                 } else {
                   url = WebUri(settings.searchEngine.searchUrl + value);
                 }
