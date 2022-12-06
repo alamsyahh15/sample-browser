@@ -16,7 +16,7 @@ class PopupMenuActions {
   // ignore: constant_identifier_names
   static const String DESKTOP_MODE = "Desktop mode";
   // ignore: constant_identifier_names
-  static const String SETTINGS = "Settings";
+  // static const String SETTINGS = "Settings";
   // ignore: constant_identifier_names
   // static const String DEVELOPERS = "Developers";
   // ignore: constant_identifier_names
@@ -31,7 +31,7 @@ class PopupMenuActions {
     SHARE,
     FIND_ON_PAGE,
     DESKTOP_MODE,
-    SETTINGS,
+    // SETTINGS,
     // DEVELOPERS,
     // INAPPWEBVIEW_PROJECT,
   ];

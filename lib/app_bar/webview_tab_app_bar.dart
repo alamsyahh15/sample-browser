@@ -1,6 +1,7 @@
 // import 'package:cached_network_image/cached_network_image.dart';
 // ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, use_build_context_synchronously
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -159,10 +160,16 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
         children: <Widget>[
           TextField(
             onSubmitted: (value) {
+              value = value.toLowerCase();
               var url = WebUri(value.trim());
+              log("Tes -> ${url.hasAbsolutePath}");
               if (!url.scheme.startsWith("http") &&
                   !Util.isLocalizedContent(url)) {
-                url = WebUri(settings.searchEngine.searchUrl + value);
+                if (Util.isValidDomain(value)) {
+                  url = WebUri("https://$value");
+                } else {
+                  url = WebUri(settings.searchEngine.searchUrl + value);
+                }
                 // url = WebUri(settings.searchEngine.searchUrl);
               }
 
@@ -634,20 +641,20 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                         )
                       ]),
                 );
-              case PopupMenuActions.SETTINGS:
-                return CustomPopupMenuItem<String>(
-                  enabled: true,
-                  value: choice,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(choice),
-                        const Icon(
-                          Icons.settings,
-                          color: Colors.grey,
-                        )
-                      ]),
-                );
+              // case PopupMenuActions.SETTINGS:
+              //   return CustomPopupMenuItem<String>(
+              //     enabled: true,
+              //     value: choice,
+              //     child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Text(choice),
+              //           const Icon(
+              //             Icons.settings,
+              //             color: Colors.grey,
+              //           )
+              //         ]),
+              //   );
               // case PopupMenuActions.DEVELOPERS:
               //   return CustomPopupMenuItem<String>(
               //     enabled: browserModel.getCurrentTab() != null,
@@ -751,11 +758,11 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
       //     goToDevelopersPage();
       //   });
       //   break;
-      case PopupMenuActions.SETTINGS:
-        Future.delayed(const Duration(milliseconds: 300), () {
-          goToSettingsPage();
-        });
-        break;
+      // case PopupMenuActions.SETTINGS:
+      //   Future.delayed(const Duration(milliseconds: 300), () {
+      //     goToSettingsPage();
+      //   });
+      //   break;
       // case PopupMenuActions.INAPPWEBVIEW_PROJECT:
       //   Future.delayed(const Duration(milliseconds: 300), () {
       //     openProjectPopup();

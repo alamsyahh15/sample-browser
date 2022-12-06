@@ -13,6 +13,13 @@ class Util {
         url.scheme == "about");
   }
 
+  static bool isValidDomain(String url) {
+    String pattern =
+        r'^(?!\-)(?:(?:[a-zA-Z\d][a-zA-Z\d\-]{0,61})?[a-zA-Z\d]\.){1,126}(?!\d+)[a-zA-Z\d]{1,63}$';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(url);
+  }
+
   static bool isAndroid() {
     return !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
   }
