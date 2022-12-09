@@ -28,9 +28,8 @@ class _EmptyTabState extends State<EmptyTab> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage(settings.searchEngine.assetIcon)),
-            const SizedBox(
-              height: 10,
+            Image(
+              image: AssetImage(settings.searchEngine.assetIcon),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

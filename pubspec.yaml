@@ -101,6 +101,7 @@ flutter:
     - assets/images/duckduckgo_logo.png
     - assets/images/ecosia_logo.png
     - assets/icon/icon.png
+    - assets/icon/ic_logoawan.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
